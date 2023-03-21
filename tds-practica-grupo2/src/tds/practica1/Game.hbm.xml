@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping3.0.dtd">
+<hibernate-mapping package="juegos">
+	<class table="GAME" name="Game">
+		<id name="name" column="NAME"></id>
+			<property name="minPlayers" column="MINPLAYERS" type="int"/>
+			<property name="maxPlayers" column="MAXPLAYERS" type="int"/>
+			<property name="minAge" column="MINAGE" type="int"/>
+			<property name="category">
+				<type name="org.hibernate.type.EnumType">
+					<param name="enumClass">juegos.Category</param>
+					<param name="useNamed">true</param>
+				</type>
+			</property>
+			<set table="AUTHORS" name="authors" lazy="false" inverse="true">
+				<key column="ID" />
+				<many-to-many column="NAME" class="Author" />
+			</set>
+			
+			<set name="gameLists" table="GAMELISTS" lazy="false" inverse="true">
+				<key column="ID" />
+				<many-to-many column="NAME" class="GameList" />
+			</set>
+			
+	</class>
+</hibernate-mapping>
